@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var radio_buttons = ["id", "name", "breed", "age_group", "gender", "location", "source", "color_code"];
+        var hide_all = function() {
+            $(".search_possibilities").hide();
+        };
+        var show_possibilities = function(keyword) {
+            hide_all();
+            $("#" + keyword + "_possible").show();
+        };
+        var init = function() {
+            hide_all();
+            var form = document.getElementById("form1");
+            form.addEventListener("submit", function(event) {
+                var nodes = document.getElementsByName("search_mode");
+                for (var i = 0; i < nodes.length; i++) {
+                    console.log("Node " + i + ": " + nodes[i].checked);
+                    if (nodes[i].checked === true) {
+                        console.log("Node " + i + " is checked! (" + radio_buttons[i] + ")");
+                        var checked_button = true;
+                    }
+                }
+                var text_entered = document.getElementById("searchbox").value != "";
+                if (!checked_button || !text_entered) {
+                    event.preventDefault();
+                    return false;
+                }
+                console.log("Submitting data...");
+                return true;
+            }, false);
+        };
+        var check_radio_buttons = function() {
+            nodes = document.getElementsByName("search_mode");
+            for (var i = 0; i < nodes.length; i++) {
+                console.log("Node " + i + ": " + nodes[i].checked);
+                if (nodes[i].checked === true) {
+                    console.log("Node " + i + " is checked! (" + radio_buttons[i] + ")");
+                    var checked_button = radio_buttons[i];
+                }
+            }
+            switch (checked_button) {
+                case undefined:
+                    console.log("Nothing selected...");
+                    hide_all();
+                    break;
+                case "id":
+                    hide_all();
+                    break;
+                case "name":
+                    hide_all();
+                    break;
+                case "breed":
+                    show_possibilities(checked_button);
+                    break;
+                case "age_group":
+                    show_possibilities(checked_button);
+                    break;
+                case "gender":
+                    show_possibilities(checked_button);
+                    break;
+                case "location":
+                    show_possibilities(checked_button);
+                    break;
+                case "source":
+                    show_possibilities(checked_button);
+                    break;
+                case "color_code":
+                    show_possibilities(checked_button);
+                    break;
+            }
+        };
+    </script>
+</head>
+<body onload="init()">
+<h1><a href="/">Home</a> Choose search mode and value:</h1>
+<form id="form1" method="post">
+    <h3>Search Types</h3>
+    <input class="search_mode_radiobutton" id="animal_id_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="animal_id">
+    <label for="animal_id_button">Animal ID Number</label><br>
+    <input class="search_mode_radiobutton" id="name_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="name">
+    <label for="name_button">Name</label><br>
+    <input class="search_mode_radiobutton" id="breed_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="breed">
+    <label for="breed_button">Breed</label><br>
+    <input class="search_mode_radiobutton" id="age_group_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="age_group">
+    <label for="age_group_button">Age Group</label><br>
+    <input class="search_mode_radiobutton" id="gender_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="gender">
+    <label for="gender_button">Gender</label><br>
+    <input class="search_mode_radiobutton" id="location_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="location">
+    <label for="location_button">Location</label><br>
+    <input class="search_mode_radiobutton" id="source_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="source">
+    <label for="source_button">Source</label><br>
+    <input class="search_mode_radiobutton" id="color_code_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="color_code">
+    <label for="color_code_button">Color Code</label><br>
+    <h3>Possible Values (depends on search type)</h3>
+    <div id="breed_possible" class="search_possibilities">
+        <code>
+            {% for item in possible_breeds %}
+                <em>{{ item }}</em> / 
+            {% endfor %}
+        </code>
+    </div>
+    <div id="age_group_possible" class="search_possibilities">
+        <code>
+            {% for item in possible_age_groups %}
+                <em>{{ item }}</em> / 
+            {% endfor %}
+        </code>
+    </div>
+    <div id="gender_possible" class="search_possibilities">
+        <code>
+            {% for item in possible_genders %}
+                <em>{{ item }}</em> / 
+            {% endfor %}
+        </code>
+    </div>
+    <div id="location_possible" class="search_possibilities">
+        <code>
+            {% for item in possible_locations %}
+                <em>{{ item }}</em> / 
+            {% endfor %}
+        </code>
+    </div>
+    <div id="source_possible" class="search_possibilities">
+        <code>
+            {% for item in possible_sources %}
+                <em>{{ item }}</em> / 
+            {% endfor %}
+        </code>
+    </div>
+    <div id="color_code_possible" class="search_possibilities">
+        <code>
+            {% for item in possible_color_codes %}
+                <em>{{ item }}</em> / 
+            {% endfor %}
+        </code>
+    </div>
+    <h3>Search Term</h3>
+    <input id="searchbox" type="text" name="search_term" style="width: 90%; margin-left: 5%; margin-right: 5%; padding: 10px;">
+    <br>
+    <br>
+    <input type="submit">
+</form>
+</body>
+</html>

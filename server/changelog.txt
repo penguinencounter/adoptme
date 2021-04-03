@@ -1,0 +1,6 @@
+Database changes: 0 dogs were added, and 0 were removed.
+Id: [Name, Sex, Breed1, Breed2, CrossBreed?, AgeYears, AgeMonths, AgeApproximate?, Location, Date Added, Date Removed]
+
+Added:
+
+Removed:

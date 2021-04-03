@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        a {
+            color: yellow;
+        }
+        #popup div {
+            color: black;
+        }
+    </style>
+    <script src="/scripts/jquery-3.4.1.min.js"></script>
+    <script src="/scripts/popup.js"></script>
+    <link rel="stylesheet" href="/scripts/grid.css">
+</head>
+<body>
+    <div id="popup" style="display: none"><div id="popup-header" onclick="kill_popup();">Close</div><div id="popup-content"></div></div>
+    <a href="/search/">Search for Pets...</a><br>
+    <a href="/grid/" onclick="if (confirm('This page takes a long time to load.\nDo you want to continue?')) {popup_text('Working...');return true;} else {popup_text('Cancelled.');return false;}">Image Grid</a>
+    <h1>Logs <a href="{{ logpath }}" download="adoptme.log">Download</a></h1>
+    {% if logs %}
+        <code>{% for line in logs %}
+                {{ line }}<br>
+            {% endfor %}
+          {% endif %}</code>
+</body>
+</html>

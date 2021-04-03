@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Record (popup)</title>
+</head>
+<!--
+f'   animal_id..............: {self.animal_id}\n'
+            f'   name...................: {self.name}\n'
+            f'   breed_primary..........: {self.breed_primary}\n'
+            f'   breed_secondary........: {self.breed_secondary}\n'
+            f'   age_group..............: {self.age_group}\n'
+            f'   date_of_birth..........: {self.date_of_birth}\n'
+            f'   gender.................: {self.gender}\n'
+            f'   location...............: {self.location}\n'
+            f'   source.................: {self.source}\n'
+            f'   surrender_reason.......: {self.surrender_reason}\n'
+            f'   color_code.............: {self.color_code}\n'
+            f'   suitability_constraints: {self.suitability_constraints}\n'
+            f'   intake_date............: {self.intake_date}\n'
+            f'   departure..............: {self.departure}\n'
+            f'   adoption_time..........: {self.adoption_time}\n'
+            f'   repeat_engagement......: {self.repeat_engagement}\n'-->
+<body>
+    {% for record in records %}
+        <h1>Pet Record #{{ loop.index }}</h1>
+        <ul>
+            <li>Animal ID Number: {{ record.animal_id }}</li>
+            <li>Name: {{ record.name }}</li>
+            <li>Breed (primary): {{ record.breed_primary.name }}</li>
+            <li>Breed (secondary): {{ record.breed_secondary.name }}</li>
+            <li>Age Group: {{ record.age_group.name }}</li>
+            <li>Date of Birth: {{ record.date_of_birth }}</li>
+            <li>Gender: {{ record.gender.name }}</li>
+            <li>Location: {{ record.location.name }}</li>
+            <li>Source: {{ record.source.name }}</li>
+            <li>Surrender Reason: {{ record.surrender_reason.name }}</li>
+            <li>Color Code: {{ record.color_code.name }}</li>
+            <li>Suitability Constraints:
+            <ul>
+                {% for constraint in record.suitability_constraints %}
+                <li>{{ constraint }}</li>
+                {% endfor %}
+            </ul></li>
+            <li>Intake Date: {{ record.intake_date }}</li>
+            <li>Departure: {{ record.departure }}</li>
+            <li>Days in System: {{ record.adoption_time }}</li>
+            <li>Return: {{ record.repeat_engagement }}</li>
+        </ul>
+        <a href="/images/{{ record.animal_id }}.jpg"><img src="/images/{{ record.animal_id }}.jpg" width=500 /></a>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Dogs</title>
+    <script src="/scripts/jquery-3.4.1.min.js"></script>
+    <script src="/scripts/popup.js"></script>
+    <link rel="stylesheet" href="/scripts/grid.css">
+</head>
+<body onload="kill_popup();">
+    <a href="/">Go Home</a><br>
+    <div id="popup" style="display: none"><div id="popup-header" onclick="kill_popup();">Close</div><div id="popup-content"></div></div>
+    {% for record in records %}
+        <a href="javascript:void(0);" onclick="popup_record({{ record.animal_id }});">
+        <img src="/images/{{ record.animal_id }}.jpg" width="100px" style="margin: 10px;" class="doggo">
+        </a>
+    {% endfor %}
+</body>
+</html>
