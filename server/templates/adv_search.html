@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Advanced Search</title>
+        <script src="/scripts/jquery-3.4.1.min.js"></script>
+    </head>
+    <body>
+        <a href="/">Home</a>
+        <h1>Advanced Search</h1>
+        <form id="form1" method="post">
+            <select name="search_type_1">
+                <option value=""></option>
+                <option value="name">Name</option>
+                <option value="breed">Breed</option>
+                <option value="age">Age Group</option>
+                <option value="sex">Gender</option>
+                <option value="loc">Location</option>
+                <option value="src">Source</option>
+            </select>
+            <input type="text" name="search_term_1a" id="term_1_text"> <!-- Name only -->
+            <select name="search_term_1b" id="term_1_dropdown"> <!-- Everything else, autopopulate -->
+                <option value="">Select an option</option>
+            </select>
+        </form>
+    </body>
+</html>

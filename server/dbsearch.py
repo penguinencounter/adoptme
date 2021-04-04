@@ -20,8 +20,7 @@ class DBSearch:
                      "age_group": 3,
                      "gender": 4,
                      "location": 5,
-                     "source": 6,
-                     "color_code": 7}
+                     "source": 6}
 
     def __init__(self, db_path):
         self.path = db_path
@@ -33,7 +32,6 @@ class DBSearch:
         self.possible_genders = {i.gender.name for i in self.db if i.gender is not None}
         self.possible_locations = {i.location.name for i in self.db if i.location is not None}
         self.possible_sources = {i.source.name for i in self.db if i.source is not None}
-        self.possible_color_codes = {i.color_code.name for i in self.db if i.color_code is not None}
 
     def everything(self):
         return self.db
@@ -66,7 +64,6 @@ class DBSearch:
                 else:
                     return False
             else:
-                print(f" HITTTTTT!!! breed is {item.breed} ... ", end="")
                 return item.breed_primary is None or item.breed_primary.name is None
 
         def age_group_search(item, term):
@@ -76,7 +73,6 @@ class DBSearch:
                 else:
                     return False
             else:
-                print(f" HITTTTTT!!! age_group is {item.age_group} ... ", end="")
                 return item.age_group is None or item.age_group.name is None
 
         def gender_search(item, term):
@@ -86,7 +82,6 @@ class DBSearch:
                 else:
                     return False
             else:
-                print(f" HITTTTTT!!! gender is {item.gender} ... ", end="")
                 return item.gender is None or item.gender.name is None
 
         def location_search(item, term):
@@ -96,7 +91,6 @@ class DBSearch:
                 else:
                     return False
             else:
-                print(f" HITTTTTT!!! location is {item.location} ... ", end="")
                 return item.location is None or item.location.name is None
 
         def source_search(item, term):
@@ -106,22 +100,10 @@ class DBSearch:
                 else:
                     return False
             else:
-                print(f" HITTTTTT!!! source is {item.source} ... ", end="")
                 return item.source is None or item.source.name is None
-
-        def color_code_search(item, term):
-            if term is not None:
-                if item.color_code is not None:
-                    return term in item.color_code.name
-                else:
-                    return False
-            else:
-                print(f" HITTTTTT!!! color_code is {item.color_code} ... ", end="")
-                return item.color_code is None or item.color_code.name is None
 
         for i in self.db:
             if i is not None:
-                print(f"searching pet id #{i.animal_id} ... ", end="")
                 add_bool = case(key,
                                 [0, 1, 2, 3, 4, 5, 6, 7],
                                 id_search,
@@ -131,7 +113,6 @@ class DBSearch:
                                 gender_search,
                                 location_search,
                                 source_search,
-                                color_code_search,
                                 send=(i, search))
                 if add_bool:
                     results.append(i)

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/scripts/jquery-3.4.1.min.js"></script>
     <script>
         var radio_buttons = ["id", "name", "breed", "age_group", "gender", "location", "source", "color_code"];
         var hide_all = function() {
@@ -69,9 +69,6 @@
                 case "source":
                     show_possibilities(checked_button);
                     break;
-                case "color_code":
-                    show_possibilities(checked_button);
-                    break;
             }
         };
     </script>
@@ -94,8 +91,6 @@
     <label for="location_button">Location</label><br>
     <input class="search_mode_radiobutton" id="source_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="source">
     <label for="source_button">Source</label><br>
-    <input class="search_mode_radiobutton" id="color_code_button" type="radio" onchange="check_radio_buttons();" name="search_mode" value="color_code">
-    <label for="color_code_button">Color Code</label><br>
     <h3>Possible Values (depends on search type)</h3>
     <div id="breed_possible" class="search_possibilities">
         <code>
@@ -128,13 +123,6 @@
     <div id="source_possible" class="search_possibilities">
         <code>
             {% for item in possible_sources %}
-                <em>{{ item }}</em> / 
-            {% endfor %}
-        </code>
-    </div>
-    <div id="color_code_possible" class="search_possibilities">
-        <code>
-            {% for item in possible_color_codes %}
                 <em>{{ item }}</em> / 
             {% endfor %}
         </code>

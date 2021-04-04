@@ -32788,7 +32788,3 @@ INFO:root:   1 pets adopted. [719649]
 INFO:root:   0 pets returned. []
 INFO:root:   8118 records in database.
 INFO:root:Database updated on 2021-04-04 14:01
-INFO:root:   0 pets added. []
-INFO:root:   0 pets adopted. []
-INFO:root:   0 pets returned. []
-INFO:root:   8118 records in database.

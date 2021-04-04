@@ -30,14 +30,14 @@ def parse_command_line() -> argparse.Namespace:
     )
     parser.add_argument(
         '--log',
-        default='data/adoptme.log',
+        default=None,
         help='log file path'
     )
 
     args = parser.parse_args()
     args.pet_database = os.path.abspath(os.path.expanduser(args.pet_database))
     args.image_dir = os.path.abspath(os.path.expanduser(args.image_dir))
-    args.log = os.path.abspath(os.path.expanduser(args.log))
+    args.log = os.path.abspath(os.path.expanduser(args.log)) if args.log else None
     return args
 
 
@@ -213,21 +213,30 @@ def main():
     animal_url = base_url + 'animal?Id={}'
     img_url = 'https://do31x39459kz9.cloudfront.net'
 
-    logging.basicConfig(filename=args.log, level=logging.INFO)
+    if args.log:
+        logging.basicConfig(filename=args.log, level=logging.INFO)
+    else:
+        logging.basicConfig(level=logging.INFO)
     now = datetime.datetime.now().isoformat(sep=' ', timespec='minutes')
+    now_old = datetime.datetime.now()
 
     try:
         if not os.path.exists(args.image_dir):
             os.makedirs(args.image_dir)
-
+        logging.info(f"Loading pet records.")
         all_pets = pet_database.load_pet_records(args.pet_database)
+        logging.info(f"Fetching current pets.")
         current_pets = scrape.get_available_pets(current_pets_url)
+        logging.info(f"Classifying pets.")
         new_pets, returned_pets, adopted_pets, photoless_pets = classify_pets(
             current_pets,
             all_pets,
             args.image_dir
         )
+        logging.info(f"{new_pets} new, {returned_pets} returned, {adopted_pets} adopted, {photoless_pets} photoless")
+        logging.info(f"Updating adoption time data.")
         update_adopted_pets(all_pets, adopted_pets, today)
+        logging.info(f"Adding new records and photos.")
         add_pets(
             all_pets,
             new_pets,
@@ -243,10 +252,13 @@ def main():
             args.image_dir,
             returned=True
         )
+        logging.info(f"Saving...")
         pet_database.save_pet_records(
             all_pets,
             args.pet_database
         )
+        logging.info(f"Saved.")
+        logging.info(f"Trying to get images for pets without them.")
         add_pet_images(
             photoless_pets,
             animal_url,
@@ -254,10 +266,14 @@ def main():
             args.image_dir,
             returned=False
         )
+    #     Format time.
+        now_new = datetime.datetime.now()
+        delta = now_new - now_old
+        seconds = delta.total_seconds()
     except Exception as e:
-        logging.error(f'Error updating database on {now}: {e}')
+        logging.error(f'Error updating database on {now_old}: {e}')
     else:
-        logging.info(f'Database updated on {now}')
+        logging.info(f'Database updated on {now}, took {seconds}s')
         logging.info(f'   {len(new_pets)} pets added. {new_pets}')
         logging.info(f'   {len(adopted_pets)} pets adopted. {adopted_pets}')
         logging.info(f'   {len(returned_pets)} pets returned. {returned_pets}')

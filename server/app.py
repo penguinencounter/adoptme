@@ -6,7 +6,6 @@ import dbsearch
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 log_path = os.path.abspath(os.path.expanduser("data/adoptme.log"))
-data_path = os.path.abspath(os.path.expanduser("data/pets.csv"))
 
 
 def markup_log(line: str) -> str:
@@ -105,8 +104,7 @@ def search():
                                      possible_age_groups=database.possible_age_groups,
                                      possible_genders=database.possible_genders,
                                      possible_locations=database.possible_locations,
-                                     possible_sources=database.possible_sources,
-                                     possible_color_codes=database.possible_color_codes)
+                                     possible_sources=database.possible_sources)
     elif request.method == 'POST':
         search_mode = request.form["search_mode"]
         search_term = request.form["search_term"]
@@ -126,4 +124,9 @@ def record_show(animal_id):
     return flask.render_template("record_on_file.html", records=[r for r in results])
 
 
-app.run("0.0.0.0", 8000)
+@app.route("/adv/")
+def advanced_search():
+    return flask.render_template("adv_search.html")
+
+
+app.run("0.0.0.0", 8000, debug=True)
