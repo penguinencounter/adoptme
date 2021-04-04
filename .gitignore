@@ -1,0 +1,10 @@
+data/
+.*
+!.gitignore
+server.log
+scrape
+Wolfram\ Mathematica/
+!adoptme/*
+!server/*
+**/.idea/
+**/__pycache__/
