@@ -18,13 +18,15 @@ class NameId(typing.NamedTuple):
     identifier: int
 
 
+# noinspection PyPep8Naming
 def NullID():
-    return NameId("NULL","NULL")
+    return NameId("NULL", "NULL")
 
 
 class PetRecord:
     ALL_SUITABILITY_CONSTRAINTS = []
     """Pet Record."""
+
     def __init__(self):
         """Construct empty PetRecord."""
         # Animal information from external provider.
@@ -71,72 +73,57 @@ class PetRecord:
         )
 
         return s
-    
+
     @classmethod
     def csv_headers(cls):
         """
         Create CSV Headers
         """
-        strbuild = '"animal_id","name","breed_primary","breed_primary_id","breed_secondary","breed_secondary_id","age_group","age_group_id",' \
-               '"date_of_birth","gender","gender_id","location","location_id","source","source_id","surrender_reason","surrender_reason_id",' \
-               '"color_code","color_code_id",'
+        strbuild = '"animal_id","name","breed_primary","breed_primary_id","breed_secondary","breed_secondary_id",' \
+                   '"age_group","age_group_id","date_of_birth","gender","gender_id","location","location_id",' \
+                   '"source","source_id","surrender_reason","surrender_reason_id","color_code","color_code_id",'
         for const in cls.ALL_SUITABILITY_CONSTRAINTS:
             strbuild += f'"{const.name}",'
         postSection = '"intake_date","departure","adoption_time","return"'
         strbuild += postSection
         return strbuild
-    
+
     def clean_data(self):
-#       print(f"[{self.animal_id}] data clean... ", end="", flush=True)
+
         if self.name is None:
-#           print("name, ", end="", flush=True)
             self.name = "NULL"
         if self.breed_primary is None:
-#           print("pbreed, ", end="", flush=True)
             self.breed_primary = NullID()
         if self.breed_secondary is None:
-#           print("sbreed, ", end="", flush=True)
             self.breed_secondary = NullID()
         if self.age_group is None:
-#           print("agegrp, ", end="", flush=True)
             self.age_group = NullID()
         if self.date_of_birth is None:
-#           print("dob, ", end="", flush=True)
             self.date_of_birth = "NULL"
         if self.gender is None:
-#           print("gender, ", end="", flush=True)
             self.gender = NullID()
         if self.location is None:
-#           print("loc, ", end="", flush=True)
             self.location = NullID()
         if self.source is None:
-#           print("src, ", end="", flush=True)
             self.source = NullID()
         if self.surrender_reason is None:
-#           print("surres, ", end="", flush=True)
             self.surrender_reason = NullID()
         if self.color_code is None:
-#           print("col, ", end="", flush=True)
             self.color_code = NullID()
         if self.suitability_constraints is None:
-#           print("sc, ", end="", flush=True)
             self.suitability_constraints = []
         if self.intake_date is None:
-#           print("intake_dt, ", end="", flush=True)
             self.intake_date = "NULL"
         if self.departure is None:
-#           print("dep_dt, ", end="", flush=True)
             self.departure = "NULL"
         if self._adoption_time is None:
-#           print("adopt_diff, ", end="", flush=True)
             self.adoption_time_out = "\"NULL\""
         else:
             self.adoption_time_out = str(self.adoption_time.days)
         if self.repeat_engagement is None:
-#           print("return, ", end="", flush=True)
             self.repeat_engagement = "NULL"
-#       print()
- 
+
+
     def csv_data(self):
         pre_const = f'{self.animal_id},"{self.name}","{self.breed_primary.name}",{self.breed_primary.identifier},"{self.breed_secondary.name}",{self.breed_secondary.identifier},"{self.age_group.name}",{self.age_group.identifier},"{str(self.date_of_birth)}","{self.gender.name}",{self.gender.identifier},"{self.location.name}",{self.location.identifier},"{self.source.name}",{self.source.identifier},"{self.surrender_reason.name}",{self.surrender_reason.identifier},"{self.color_code.name}",{self.color_code.identifier},'
         for const in PetRecord.ALL_SUITABILITY_CONSTRAINTS:
@@ -150,12 +137,12 @@ class PetRecord:
         else:
             post_const += '0'
         return pre_const + post_const
-    
+
     def register_suitability_constraints(self):
         for const in self.suitability_constraints:
             if const not in PetRecord.ALL_SUITABILITY_CONSTRAINTS:
                 PetRecord.ALL_SUITABILITY_CONSTRAINTS.append(const)
-        #       print(f"registered... {len(PetRecord.ALL_SUITABILITY_CONSTRAINTS)} so far",end="")
+
 
     @classmethod
     def from_animal_record(cls, record: dict):
@@ -260,7 +247,7 @@ class PetRecord:
 
 
 def extract_color_code(
-    summary: str
+        summary: str
 ) -> NameId:
     """Extract color code from animal summary.
 

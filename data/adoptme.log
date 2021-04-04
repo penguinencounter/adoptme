@@ -32772,3 +32772,31 @@ INFO:root:   0 pets added. []
 INFO:root:   0 pets adopted. []
 INFO:root:   0 pets returned. []
 INFO:root:   8114 records in database.
+INFO:root:Loading pet records.
+INFO:root:Fetching current pets.
+INFO:root:Classifying pets.
+INFO:root:[] new, [] returned, [] adopted, [] photoless
+INFO:root:Updating adoption time data.
+INFO:root:Adding new records and photos.
+INFO:root:Saving...
+INFO:root:Saved.=
+INFO:root:Trying to get images for pets without them.
+INFO:root:Database updated on 2021-04-04 13:25, took 28.03085s
+INFO:root:   0 pets added. []
+INFO:root:   0 pets adopted. []
+INFO:root:   0 pets returned. []
+INFO:root:   8118 records in database.
+INFO:root:Loading pet records.
+INFO:root:Fetching current pets.
+INFO:root:Classifying pets.
+INFO:root:[] new, [] returned, [] adopted, [162027, 206875, 233855, 238328, 362177, 409515, 591183, 591465, 614414, 631123, 659202, 667962, 670819, 678244, 688774, 689629, 696306, 705878, 709654, 710399, 710880, 713228, 714602, 715258, 716173, 717025, 717244, 718058, 718323, 718573, 718865, 719084, 720003, 721210, 721535, 722060, 722388, 722932, 723103, 723151, 723198, 723323, 723409, 723629, 723961, 724011, 724263, 724421, 724845, 724980, 725123, 725166, 725167, 725221, 725266, 725311, 725312, 725313, 725377, 725549, 726094, 726095, 726097, 726100, 726293] photoless
+INFO:root:Updating adoption time data.
+INFO:root:Adding new records and photos.
+INFO:root:Saving...
+INFO:root:Saved.
+INFO:root:Trying to get images for pets without them.
+INFO:root:Database updated on 2021-04-04 13:40, took 59.62522s
+INFO:root:   0 pets added. []
+INFO:root:   0 pets adopted. []
+INFO:root:   0 pets returned. []
+INFO:root:   8118 records in database.

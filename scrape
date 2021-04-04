@@ -1,4 +1,4 @@
 #! /bin/bash
-pushd ${HOME}/adoptme > /dev/null
-python3 adoptme.py ${HOME}/data/pets.pkl --image_dir ${HOME}/data/images --log ${HOME}/data/adoptme.log
-popd > /dev/null
+pushd "${HOME}"/adoptme > /dev/null || { echo "Problem booting program. Exiting."; exit 1; }
+python3 adoptme.py "${HOME}"/data/pets.pkl --image_dir "${HOME}"/data/images --log "${HOME}"/data/adoptme.log
+popd > /dev/null || { echo "Problem returning working directory. Exiting."; exit 1; }
