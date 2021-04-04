@@ -1,10 +1,10 @@
-data/
 .*
 !.gitignore
 server.log
-scrape
 Wolfram\ Mathematica/
 !adoptme/*
 !server/*
+!data/*
+data/images/
 **/.idea/
 **/__pycache__/
